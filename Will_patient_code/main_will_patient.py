@@ -86,3 +86,9 @@ plt.xlabel("Age of Dementia Diagnosis (Years)")
 plt.ylabel("Age of Death (Years)")
 
 plt.show()
+
+'''
+Ai Usage:
+I used AI to help me write and understand code for problems 5-8 while also refering to the README.md file for the dog data set assignment.
+I was able to get a broad understanding of what to do using the README file but had AI speicifically help me and explain problems 5-8 when I was stuck.
+'''
