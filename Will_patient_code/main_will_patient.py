@@ -3,6 +3,8 @@ from patient import * #importing data from patient.py
 import matplotlib.pyplot as plt #importing matplotlib for plotting bar graph
 import numpy as np 
 import statistics #importing statistics for calculating mean and standard deviation
+from scipy import stats
+import pandas as pd #importing pandas for data manipulation
 
 
 patient_objects.instantiate_from_csv("/Users/williambarlow/Library/CloudStorage/OneDrive-UniversityofVirginia/Second Year/First Semester/BME 2315/Module 1/BME2315_Module1/Metadata and Protein Data for Module 1.csv") #instantiating patient objects from the csv file
@@ -57,6 +59,9 @@ patient_sex = ["Female", "Male"]
 
 mean_onset_age = [female_mean, male_mean]
 stdev_onset_age = [female_stdev, male_stdev]
+
+t_stat, p_val = stats.ttest_ind(age_female_patients, age_male_patients) #calculates t-test for independent samples to compare mean symptom onset age for male and female patients
+print(f't_stat = {t_stat}, p_val = {p_val}') #prints t-test results
 
 #creates bar graph with bar height as mean symptom onset age and error bars as plus and minus one standard deviation
 plt.bar(patient_sex, mean_onset_age, yerr=stdev_onset_age, capsize=10)
