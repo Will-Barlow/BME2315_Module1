@@ -5,9 +5,10 @@ import numpy as np
 import statistics #importing statistics for calculating mean and standard deviation
 from scipy import stats
 import pandas as pd #importing pandas for data manipulation
+from sklearn.linear_model import LinearRegression
 
 
-patient_objects.instantiate_from_csv("/Users/williambarlow/Library/CloudStorage/OneDrive-UniversityofVirginia/Second Year/First Semester/BME 2315/Module 1/BME2315_Module1/Metadata and Protein Data for Module 1.csv") #instantiating patient objects from the csv file
+patient_objects.instantiate_from_csv("c:/Users/sarah/BME 2315/Module 1/BME2315_Module1/Metadata and Protein Data for Module 1.csv") #instantiating patient objects from the csv file
 
 
 #Question 4: Printing patient objects from csv
@@ -84,6 +85,25 @@ for patient in patient_objects.all_patients:
         diagnosis_ages.append(patient.age_of_diagnosis) #appending list of age of diagnosis for patients
         death_ages.append(patient.age_of_death) #appending list of age of death for patients
 
+X= [diagnosis_ages]
+y = [death_ages]
+
+X=np.array(diagnosis_ages).reshape(-1,1)
+y=np.array(death_ages)
+
+#Do Linear regression
+model= LinearRegression()
+model.fit(X,y)
+
+slope=model.coef_[0]
+intercept=model.intercept_
+r2=model.score(X,y)
+
+#Annotate Equation
+equation=f"y = {slope:.2f}x + {intercept:.2f}\nR'= {r2:.2f}"
+plt.text(X.max(), y.max(), equation, color="red", fontsize=12, verticalalignment='top', horizontalalignment="right")
+y_pred = model.predict(X)
+plt.plot(X, y_pred, color="red", linewidth=2)
 #creates scatterplot for relationship between age of diagnosis and age of death for patients
 plt.scatter(diagnosis_ages, death_ages)
 plt.title("Age of Dementia Diagnosis vs Age of Death")
@@ -91,6 +111,7 @@ plt.xlabel("Age of Dementia Diagnosis (Years)")
 plt.ylabel("Age of Death (Years)")
 
 plt.show()
+
 
 '''
 Ai Usage:
